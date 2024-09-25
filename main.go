@@ -12,12 +12,16 @@ func main() {
 	config.InitDB()
 
 	// Migrasi model ke dalam database
-	config.DB.AutoMigrate(
+	err := config.DB.AutoMigrate(
 		&models.Category{},
 		&models.SubCategory{},
 		&models.Blog{},
 		&models.Tag{},
 	)
+
+	if err != nil {
+		log.Fatalf("migration failed: %v", err)
+	}
 
 	// Setup router
 	router := routers.SetupRouter()

@@ -19,5 +19,11 @@ func SetupRouter() *gin.Engine {
 		blogRoutes.DELETE("/:id", controllers.DeleteBlog) // Rute untuk menghapus blog berdasarkan ID
 	}
 
+	categoryRoutes := router.Group("/categories")
+	{
+		categoryRoutes.POST("/", controllers.CreateCategory)       // Endpoint untuk membuat category baru
+		categoryRoutes.POST("/sub", controllers.CreateSubCategory) // Endpoint untuk membuat subcategory baru
+	}
+
 	return router
 }
