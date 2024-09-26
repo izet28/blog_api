@@ -13,6 +13,7 @@ func SetupRouter() *gin.Engine {
 	blogRoutes := router.Group("/blogs")
 	{
 		blogRoutes.GET("/", controllers.GetBlogs)
+		blogRoutes.GET("/:id", controllers.GetBlogsByID)
 		blogRoutes.POST("/", controllers.CreateBlog)
 		blogRoutes.GET("/tag/:tag", controllers.GetBlogsByTag)
 		blogRoutes.PUT("/:id", controllers.UpdateBlog)    // Rute untuk memperbarui blog berdasarkan ID

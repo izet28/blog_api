@@ -49,6 +49,23 @@ func GetBlogsByTag(c *gin.Context) {
 	c.JSON(http.StatusOK, blogs)
 }
 
+func GetBlogsByID(c *gin.Context) {
+	idParam := c.Param("id")
+	id, err := strconv.ParseUint(idParam, 10, 32)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
+		return
+	}
+	blogs, err := services.GetBlogByID(uint(id))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, blogs)
+
+}
+
 // UpdateBlog - Handler untuk memperbarui blog berdasarkan ID
 func UpdateBlog(c *gin.Context) {
 	idParam := c.Param("id")
